@@ -1,0 +1,11 @@
+.App {
+  /* Change 100vh to 100% so it fits inside the Grid */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#documenteditor_container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

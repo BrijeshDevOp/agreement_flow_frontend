@@ -1,0 +1,20 @@
+/* src\index.css */
+
+/* 1. Import the Syncfusion Bootstrap 5 Theme */
+@import url("https://cdn.syncfusion.com/ej2/21.1.35/bootstrap5.css");
+
+/* 2. Reset default browser margins */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f6f8;
+  /* A subtle grey background to make the white MUI cards pop */
+}
+
+/* 3. Ensure the Syncfusion container doesn't overflow its Material UI Grid box */
+.e-documenteditorcontainer {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0 !important;
+  /* Matches MUI's default border color */
+}
