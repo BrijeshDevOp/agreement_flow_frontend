@@ -8,14 +8,7 @@ import api from '../api/axiosConfig';
 // BUG-06 FIX: Replace all underscores in stage names
 const formatStage = (stage) => stage ? stage.replace(/_/g, ' ') : '';
 
-/**
- * BUG-05 FIX:
- *  - Accepts a `refreshKey` prop so the parent (Editor) can force a re-fetch
- *    after a save action without changing the agreementId.
- *  - API now returns `id` and `pipeline_stage`, so the React key is valid
- *    and the stage label renders correctly.
- * BUG-17 FIX: Logs are now returned oldest-first (changed in views.py).
- */
+
 function AuditTimeline({ agreementId, refreshKey }) {
     const [logs, setLogs] = useState([]);
     const [loading, setLoading] = useState(false);

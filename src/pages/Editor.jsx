@@ -28,20 +28,9 @@ function Editor() {
     const [agreement, setAgreement] = useState(null);
     const [auditRefreshKey, setAuditRefreshKey] = useState(0);
 
-    // -----------------------------------------------------------------------
-    // Store user in a ref so its reference NEVER changes between renders.
-    // Previously: getStoredUser() was called every render → new object every
-    // time → applyEditorSettings useCallback recreated → fetchAgreementData
-    // useCallback recreated → useEffect re-fired → documentEditor.open()
-    // called again → UNDID every unsaved edit the user just typed.
-    // -----------------------------------------------------------------------
     const userRef = useRef(getStoredUser());
     const user = userRef.current;
 
-    // -----------------------------------------------------------------------
-    // Apply editor permissions — deps array is empty because user is a stable
-    // ref value and editorRef is a ref. This function is created once only.
-    // -----------------------------------------------------------------------
     const applyEditorSettings = useCallback((data) => {
         if (!editorRef.current) return;
         const editor = editorRef.current.documentEditor;
@@ -87,13 +76,8 @@ function Editor() {
             editor.enableComment = false;
             try { editor.showRevisions = false; } catch (_) { }
         }
-    }, []); // stable — no changing deps
+    }, []);
 
-    // -----------------------------------------------------------------------
-    // Fetch ONLY sets state. Does NOT touch the editor directly.
-    // This keeps fetchAgreementData stable (only recreates if id/navigate
-    // change, i.e. navigating to a different agreement).
-    // -----------------------------------------------------------------------
     const fetchAgreementData = useCallback(async () => {
         try {
             const response = await api.get(`/agreements/${id}/`);
@@ -109,15 +93,6 @@ function Editor() {
         fetchAgreementData();
     }, [fetchAgreementData]);
 
-    // -----------------------------------------------------------------------
-    // Open the document and apply settings AFTER React has committed the
-    // render. At this point the Syncfusion editor is guaranteed to be mounted
-    // and editorRef.current is populated.
-    //
-    // This effect only fires when `agreement` state changes — which only
-    // happens on initial load (not on every keystroke), so the document is
-    // never reloaded while the user is typing.
-    // -----------------------------------------------------------------------
     useEffect(() => {
         if (!agreement) return;
         if (!editorRef.current) return;
@@ -135,9 +110,6 @@ function Editor() {
         applyEditorSettings(agreement);
     }, [agreement, applyEditorSettings]);
 
-    // -----------------------------------------------------------------------
-    // Save — only for editable roles (JUNIOR, SENIOR, CLIENT)
-    // -----------------------------------------------------------------------
     const handleSave = async () => {
         if (!editorRef.current || !agreement?.is_active) return;
         // BUG-07 FIX: MANAGER and FOUNDER must not trigger a save
@@ -149,7 +121,6 @@ function Editor() {
                 sfdt_content: JSON.parse(serializedData),
             });
             alert('Document Saved Successfully!');
-            // BUG-24 FIX: Increment key to force AuditTimeline to re-fetch
             setAuditRefreshKey((k) => k + 1);
         } catch (err) {
             console.error('Save failed', err);
@@ -157,9 +128,6 @@ function Editor() {
         }
     };
 
-    // -----------------------------------------------------------------------
-    // Generic workflow action (forward / accept)
-    // -----------------------------------------------------------------------
     const handleWorkflowAction = async (endpoint, successMessage) => {
         // BUG-07 FIX: Only save if the user is an editable role
         if (user.role !== 'MANAGER' && user.role !== 'FOUNDER') {
@@ -176,9 +144,6 @@ function Editor() {
         }
     };
 
-    // -----------------------------------------------------------------------
-    // Client: Request Changes — saves inline comments, bounces back to Junior
-    // -----------------------------------------------------------------------
     const handleClientRequestChanges = async () => {
         if (editorRef.current) {
             const serializedData = editorRef.current.documentEditor.serialize();
@@ -214,10 +179,7 @@ function Editor() {
     const isReadOnlyViewer =
         user.role === 'MANAGER' || user.role === 'FOUNDER';
 
-    // =========================================================================
-    // READ-ONLY LAYOUT — Manager & Founder
-    // Clean split: full-height document view (no toolbar) | Audit Timeline
-    // =========================================================================
+
     if (isReadOnlyViewer) {
         return (
             <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -314,10 +276,7 @@ function Editor() {
         );
     }
 
-    // =========================================================================
-    // EDITABLE LAYOUT — Junior, Senior, Client
-    // Full Syncfusion toolbar + Save + Workflow action buttons
-    // =========================================================================
+
     return (
         <Box sx={{ flexGrow: 1, height: '100vh', display: 'flex', flexDirection: 'column' }}>
             {/* ---- Top Navigation Bar ---- */}

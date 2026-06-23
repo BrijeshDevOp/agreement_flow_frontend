@@ -12,7 +12,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-// Replace ALL underscores for display
 const formatStage = (stage) => stage ? stage.replace(/_/g, ' ') : '';
 
 function Dashboard() {
@@ -28,7 +27,7 @@ function Dashboard() {
         } else {
             fetchAgreements();
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     const fetchAgreements = useCallback(async () => {
         setLoading(true);

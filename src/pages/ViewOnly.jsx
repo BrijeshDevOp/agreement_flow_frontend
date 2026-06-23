@@ -16,21 +16,7 @@ registerLicense('Ngo9BigBOggjHTQxAR8/V1JHaF1cXmhPYVFxWmFZfVhgdVVMZVRbQX9PIiBoS35
 
 const formatStage = (stage) => stage ? stage.replace(/_/g, ' ') : '';
 
-/**
- * ViewOnly page — /view/:id
- *
- * Pure read-only document viewer. Accessible by any authenticated user
- * when the agreement is NOT currently assigned to them.
- *
- * Layout:
- *   ┌── Slim info bar (name · stage · revision) ──────────────────────┐
- *   ├──────────────────────────────┬──────────────────────────────────┤
- *   │  Document (no toolbar)       │  Audit Timeline                  │
- *   │  72% · read-only · no cursor │  28%                             │
- *   └──────────────────────────────┴──────────────────────────────────┘
- *
- * No action buttons. No cursor. No Syncfusion ribbon.
- */
+
 function ViewOnly() {
     const { id } = useParams();
     const navigate = useNavigate();
