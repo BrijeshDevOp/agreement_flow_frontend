@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
 import { getStoredUser } from '../api/authHelpers';
-import { Box, Typography, AppBar, Toolbar, Chip, IconButton, Tooltip } from '@mui/material';
+import { Box, Typography, AppBar, Toolbar, Chip, IconButton, Tooltip, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
     DocumentEditorContainerComponent,
@@ -66,6 +66,15 @@ function ViewOnly() {
         }
     }, [id, navigate]);
 
+    const handleDownload = () => {
+        if (editorRef.current) {
+            const editor = editorRef.current.documentEditor;
+            if (editor) {
+                editor.save(agreement?.agreement_name || 'Agreement', 'Docx');
+            }
+        }
+    };
+
     useEffect(() => {
         if (!user) { navigate('/'); return; }
         loadDocument();
@@ -75,7 +84,7 @@ function ViewOnly() {
 
     return (
         <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-            {/* ── Slim info bar — no action buttons ── */}
+            {/* ── Slim info bar — only download button when completed ── */}
             <AppBar position="static" color="default" elevation={1}>
                 <Toolbar variant="dense">
                     <Tooltip title="Back to Dashboard">
@@ -103,19 +112,32 @@ function ViewOnly() {
                         </Typography>
                     </Box>
 
-                    {/* Stage only — no action buttons */}
-                    <Chip
-                        label={formatStage(agreement.current_stage)}
-                        size="small"
-                        variant="outlined"
-                        sx={{ mr: 1 }}
-                    />
-                    <Chip
-                        label="View Only"
-                        size="small"
-                        color="default"
-                        sx={{ bgcolor: '#f5f5f5', fontSize: '0.65rem' }}
-                    />
+                    {agreement.current_stage === 'COMPLETED' ? (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            onClick={handleDownload}
+                        >
+                            Download DOCX
+                        </Button>
+                    ) : (
+                        <>
+                            {/* Stage only — no action buttons */}
+                            <Chip
+                                label={formatStage(agreement.current_stage)}
+                                size="small"
+                                variant="outlined"
+                                sx={{ mr: 1 }}
+                            />
+                            <Chip
+                                label="View Only"
+                                size="small"
+                                color="default"
+                                sx={{ bgcolor: '#f5f5f5', fontSize: '0.65rem' }}
+                            />
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
 

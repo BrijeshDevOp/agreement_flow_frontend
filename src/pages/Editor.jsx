@@ -54,15 +54,15 @@ function Editor() {
                 case 'JUNIOR':
                     editor.isReadOnly = false;
                     editor.enableTrackChanges = false;
-                    editor.enableComment = false;
+                    editor.enableComment = true;
                     try { editor.showRevisions = true; } catch (_) { }
                     break;
 
                 case 'SENIOR':
                     editor.isReadOnly = false;
                     editor.enableTrackChanges = false;
-                    editor.enableComment = false;
-                    try { editor.showRevisions = false; } catch (_) { }
+                    editor.enableComment = true;
+                    try { editor.showRevisions = true; } catch (_) { }
                     break;
 
                 case 'CLIENT':
