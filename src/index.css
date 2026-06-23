@@ -3,12 +3,29 @@
 /* 1. Import the Syncfusion Bootstrap 5 Theme */
 @import url("https://cdn.syncfusion.com/ej2/21.1.35/bootstrap5.css");
 
+html {
+  overflow-x: hidden;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;   /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari */
+}
+
 /* 2. Reset default browser margins */
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background-color: #f4f6f8;
   /* A subtle grey background to make the white MUI cards pop */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* 3. Ensure the Syncfusion container doesn't overflow its Material UI Grid box */
