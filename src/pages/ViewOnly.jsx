@@ -12,7 +12,7 @@ import {
 import { registerLicense } from '@syncfusion/ej2-base';
 import AuditTimeline from '../components/AuditTimeline';
 
-registerLicense('Ngo9BigBOggjHTQxAR8/V1JHaF1cXmhPYVFxWmFZfVhgdVVMZVRbQX9PIiBoS35RcEVlW39ccnFdQ2lYUkNzVEFe');
+registerLicense('Ngo9BigBOggjHTQxAR8/V1JHaF1cXGZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWXlceXRTRGBYWEZ2WktWYEo=');
 
 const formatStage = (stage) => stage ? stage.replace(/_/g, ' ') : '';
 
@@ -44,7 +44,7 @@ function ViewOnly() {
                 editor.isReadOnly = true;
                 editor.enableTrackChanges = false;
                 editor.enableComment = false;
-                try { editor.showRevisions = false; } catch (_) {}
+                try { editor.showRevisions = false; } catch (_) { }
             }
         } catch (err) {
             console.error('Failed to load document for viewing', err);
@@ -69,7 +69,7 @@ function ViewOnly() {
     if (!agreement) return null;
 
     return (
-        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column-reverse' }}>
             {/* ── Slim info bar — only download button when completed ── */}
             <AppBar position="static" color="default" elevation={1}>
                 <Toolbar variant="dense">

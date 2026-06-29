@@ -3,7 +3,8 @@
 ## Requirements
 - Node.js 18+ — [Download](https://nodejs.org/)
 - npm (comes with Node.js)
-
+- Syncfusion community license key
+  `Get a free key at`: https://www.syncfusion.com/products/communitylicense
 ---
 
 ## Getting Started — Download & Navigate

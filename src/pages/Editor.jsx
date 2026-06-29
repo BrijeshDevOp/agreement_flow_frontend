@@ -15,9 +15,8 @@ import {
 import { registerLicense } from '@syncfusion/ej2-base';
 import AuditTimeline from '../components/AuditTimeline';
 
-registerLicense('Ngo9BigBOggjHTQxAR8/V1JHaF1cXmhPYVFxWmFZfVhgdVVMZVRbQX9PIiBoS35RcEVlW39ccnFdQ2lYUkNzVEFe');
+registerLicense('Ngo9BigBOggjHTQxAR8/V1JHaF1cXGZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWXlceXRTRGBYWEZ2WktWYEo=');
 
-// BUG-06 FIX: Replace ALL underscores
 const formatStage = (stage) => stage ? stage.replace(/_/g, ' ') : '';
 
 function Editor() {
@@ -182,7 +181,7 @@ function Editor() {
 
     if (isReadOnlyViewer) {
         return (
-            <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column-reverse' }}>
                 {/* ---- Slim info bar ---- */}
                 <AppBar position="static" color="default" elevation={1}>
                     <Toolbar variant="dense">
@@ -278,7 +277,7 @@ function Editor() {
 
 
     return (
-        <Box sx={{ flexGrow: 1, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ flexGrow: 1, height: '100vh', display: 'flex', flexDirection: 'column-reverse' }}>
             {/* ---- Top Navigation Bar ---- */}
             <AppBar position="static" color="default" elevation={1}>
                 <Toolbar>

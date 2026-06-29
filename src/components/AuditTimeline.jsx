@@ -23,7 +23,8 @@ function AuditTimeline({ agreementId, refreshKey }) {
         setLoading(true);
         try {
             const response = await api.get(`/agreements/${agreementId}/audit-log/`);
-            setLogs(response.data);
+            const sortedLogs = response.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            setLogs(sortedLogs);
         } catch (err) {
             console.error('Failed to fetch audit logs', err);
         } finally {
